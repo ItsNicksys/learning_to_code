@@ -2,25 +2,27 @@ import csv
 import hashlib
 
 
-class Main:
+def hash_password(pass_hash):
+    hash_object = hashlib.sha512(bytes(pass_hash, encoding="utf-8"))
+    password = hash_object.hexdigest()
+    return password
 
-    def __init__(self):
-        self.prompt = input('------------------------------------\n'
-                            'To login, please type "login"\n'
-                            'To create an account, type "create"\n'
-                            'Enter choice: ')
-        self.begin()
 
-    def begin(self):
-        if "lo" in self.prompt.lower():
-            Login()
-        elif "cr" in self.prompt.lower():
-            CreateAccount()
-            print("\n\nThank You for creating an account")
-            Login()
-        else:
-            print("Invalid entry - Please try again\n")
-            Main()
+def start():
+
+    prompt = input('------------------------------------\n'
+                        'To login, please type "login"\n'
+                        'To create an account, type "create"\n'
+                        'Enter choice: ')
+    if "lo" in prompt.lower():
+        Login()
+    elif "cr" in prompt.lower():
+        CreateAccount()
+        print("\n\nThank You for creating an account")
+        Login()
+    else:
+        print("Invalid entry - Please try again\n")
+        start()
 
 
 class CreateAccount:
@@ -117,10 +119,4 @@ class Login:
             Login()
 
 
-def hash_password(pass_hash):
-    hash_object = hashlib.sha512(bytes(pass_hash, encoding="utf-8"))
-    password = hash_object.hexdigest()
-    return password
-
-
-Main()
+start()
